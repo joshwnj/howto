@@ -13,15 +13,24 @@ var argv = minimist(process.argv.slice(2), {
 if (argv.help || argv._[0] === 'help') {
     usage(0);
 }
-if (argv.showdir) {
+else if (argv.showdir) {
     console.log(getdir());
+}
+else if (argv._[0] === 'show') {
+    
 }
 else if (argv._[0] === 'edit') {
     
 }
+else if (argv._[0] === 'create') {
+    var hdb = gethdb();
+    var w = hdb.createWriteStream();
+    process.stdin.pipe(w);
+    w.pipe(process.stdout);
+}
 else if (argv._[0] === 'search') {
-    var wdb = getwdb();
-    wdb.search(argv._.slice(1)).on('data', console.log);
+    var hdb = gethdb();
+    hdb.search(argv._.slice(1)).on('data', console.log);
 }
 else usage(1);
 
@@ -33,8 +42,8 @@ function usage (code) {
     });
 }
 
-function getwdb () {
-    var wikidb = require('wikidb');
+function gethdb () {
+    var howto = require('../');
     var level = require('level');
     
     var dir = getdir();
