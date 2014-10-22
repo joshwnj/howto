@@ -1,0 +1,9 @@
+howto -u
+howto --update
+
+  update the index
+
+howto --server
+
+  run an indexing server
+
