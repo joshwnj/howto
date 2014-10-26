@@ -5,6 +5,7 @@ var path = require('path');
 var mkdirp = require('mkdirp');
 var minimist = require('minimist');
 var defined = require('defined');
+var howto = require('../');
 
 var argv = minimist(process.argv.slice(2), {
     alias: { h: 'help', d: 'datadir' }
@@ -24,9 +25,12 @@ else if (argv._[0] === 'edit') {
 }
 else if (argv._[0] === 'create') {
     var hdb = gethdb();
-    var w = hdb.createWriteStream();
+    if (argv.key === undefined) argv.key = argv._[0];
+    var w = hdb.createWriteStream(argv, function (err, hash) {
+        if (err) error(err)
+        else console.log(hash)
+    });
     process.stdin.pipe(w);
-    w.pipe(process.stdout);
 }
 else if (argv._[0] === 'search') {
     var hdb = gethdb();
@@ -51,7 +55,7 @@ function gethdb () {
     mkdirp.sync(blobdir);
     
     var db = level(path.join(dir, 'db'));
-    return wikidb(db, { dir: blobdir });
+    return howto(db, { dir: blobdir });
 }
 
 function getdir () {
@@ -62,4 +66,9 @@ function getdir () {
     }
     if (!dir) dir = process.cwd();
     return dir;
+}
+
+function error (err) {
+    console.error(err);
+    process.exit(1);
 }

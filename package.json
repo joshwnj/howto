@@ -1,0 +1,42 @@
+{
+  "name": "howto",
+  "version": "1.0.0",
+  "description": "read and publish programming guides",
+  "main": "index.js",
+  "bin": {
+    "howto": "bin/cmd.js"
+  },
+  "dependencies": {
+    "wikidb": "^1.1.0",
+    "inherits": "^2.0.1",
+    "marked": "~0.3.2",
+    "through2": "~1.1.1"
+  },
+  "devDependencies": {
+    "tape": "^3.0.0"
+  },
+  "scripts": {
+    "test": "tape test/*.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/substack/howto.git"
+  },
+  "homepage": "https://github.com/substack/howto",
+  "keywords": [
+    "guide",
+    "documentation",
+    "peer to peer",
+    "wiki",
+    "level",
+    "database",
+    "multi-master",
+    "replication"
+  ],
+  "author": {
+    "name": "James Halliday",
+    "email": "mail@substack.net",
+    "url": "http://substack.net"
+  },
+  "license": "MIT"
+}
