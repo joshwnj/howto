@@ -25,7 +25,7 @@ else if (argv._[0] === 'edit') {
 }
 else if (argv._[0] === 'create') {
     var hdb = gethdb();
-    if (argv.key === undefined) argv.key = argv._[0];
+    if (argv.key === undefined) argv.key = argv._[1];
     var w = hdb.createWriteStream(argv, function (err, hash) {
         if (err) error(err)
         else console.log(hash)
