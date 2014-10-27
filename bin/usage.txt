@@ -1,9 +1,34 @@
-howto -u
-howto --update
+howto search QUERY
 
-  update the index
+  Search for articles containing QUERY using a full-text scan.
 
-howto --server
+howto browse TAG
 
-  run an indexing server
+  List all articles matching TAG.
+
+howto recent
+
+  Show all recent activity.
+
+howto read HASH
+
+  Print an article to stdout.
+
+howto show HASH
+
+  Open an article in $PAGER.
+
+howto edit HASH
+
+  Open an article in $EDITOR and save a new version.
+
+howto create
+
+  Create a new document from content on stdin.
+
+howto [push|pull|sync] {URI}
+
+  Replicate according to a push, pull, or sync strategy.
+  If URI is given, replicate over full-duplex http.
+  Otherwise, replicate over stdin and stdout.
 
