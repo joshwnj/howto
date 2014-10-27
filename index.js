@@ -22,7 +22,7 @@ Howto.prototype.createWriteStream = function (meta, cb) {
         var docmeta = parseMeta(body);
         var wmeta = xtend(docmeta, meta);
         var w = WikiDB.prototype.createWriteStream.call(self, wmeta, cb);
-        stream.pipe(w);
+        w.end(body);
     }));
     return writeonly(stream);
 };
