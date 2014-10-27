@@ -15,14 +15,25 @@ function MD (db, opts) {
     WikiDB.call(this, db, opts);
 }
 
-MD.prototype.createWriteStream = function (meta, cb) {
+var createWriteStream = WikiDB.prototype.createWriteStream;
+var _replicate = WikiDB.prototype._replicate;
+
+MD.prototype.createWriteStream = function (meta, opts, cb) {
     var self = this;
     var stream = through();
     stream.pipe(concat(function (body) {
         var docmeta = parseMeta(body);
         var wmeta = xtend(docmeta, meta);
-        var w = WikiDB.prototype.createWriteStream.call(self, wmeta, cb);
+        var w = createWriteStream.call(self, wmeta, opts, cb);
         w.end(body);
     }));
     return writeonly(stream);
+};
+
+MD.prototype._replicate = function (opts, cb) {
+    var ex = _replicate.call(this, opts, function () {
+        if (cb) cb.apply(this, arguments);
+        ex.close();
+    });
+    return ex;
 };
