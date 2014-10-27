@@ -17,15 +17,17 @@ if (argv.help || argv._[0] === 'help') {
 else if (argv.showdir) {
     console.log(getdir());
 }
-else if (argv._[0] === 'show') {
-    
+else if (argv._[0] === 'read') {
+    var hdb = gethdb();
+    var r = hdb.createReadStream(argv._[1]);
+    r.pipe(process.stdout);
 }
 else if (argv._[0] === 'edit') {
-    
+}
+else if (argv._[0] === 'sync') {
 }
 else if (argv._[0] === 'create') {
     var hdb = gethdb();
-    if (argv.key === undefined) argv.key = argv._[1];
     var w = hdb.createWriteStream(argv, function (err, hash) {
         if (err) error(err)
         else console.log(hash)
