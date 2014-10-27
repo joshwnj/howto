@@ -1,10 +1,10 @@
 {
-  "name": "howto",
+  "name": "mdwiki",
   "version": "1.0.0",
-  "description": "read and publish programming guides",
+  "description": "offline markdown wiki with multi-master replication",
   "main": "index.js",
   "bin": {
-    "howto": "bin/cmd.js"
+    "mdwiki": "bin/cmd.js"
   },
   "dependencies": {
     "default-pager": "^1.0.1",
@@ -23,9 +23,9 @@
   },
   "repository": {
     "type": "git",
-    "url": "git://github.com/substack/howto.git"
+    "url": "git://github.com/substack/mdwiki.git"
   },
-  "homepage": "https://github.com/substack/howto",
+  "homepage": "https://github.com/substack/mdwiki",
   "keywords": [
     "guide",
     "documentation",

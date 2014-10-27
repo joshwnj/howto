@@ -7,15 +7,15 @@ var xtend = require('xtend');
 var writeonly = require('write-only-stream');
 var parseMeta = require('./lib/meta.js');
 
-inherits(Howto, WikiDB);
-module.exports = Howto;
+inherits(MD, WikiDB);
+module.exports = MD;
 
-function Howto (db, opts) {
-    if (!(this instanceof Howto)) return new Howto(db, opts);
+function MD (db, opts) {
+    if (!(this instanceof MD)) return new MD(db, opts);
     WikiDB.call(this, db, opts);
 }
 
-Howto.prototype.createWriteStream = function (meta, cb) {
+MD.prototype.createWriteStream = function (meta, cb) {
     var self = this;
     var stream = through();
     stream.pipe(concat(function (body) {

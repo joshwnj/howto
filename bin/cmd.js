@@ -8,7 +8,6 @@ var defined = require('defined');
 var pager = require('default-pager');
 var editor = require('editor');
 var osenv = require('osenv');
-var howto = require('../');
 
 var argv = minimist(process.argv.slice(2), {
     alias: { h: 'help', d: 'datadir', p: 'port' }
@@ -39,8 +38,8 @@ else if (argv._[0] === 'show') {
 }
 else if (argv._[0] === 'edit') {
     var hash = argv._[1];
-    if (!hash) return error('usage: howto edit HASH');
-    var tmpfile = path.join(osenv.tmpdir(), 'howto-' + Math.random());
+    if (!hash) return error('usage: mdwiki edit HASH');
+    var tmpfile = path.join(osenv.tmpdir(), 'mdwiki-' + Math.random());
     
     var hdb = gethdb();
     var w = fs.createWriteStream(tmpfile);
@@ -95,7 +94,7 @@ function usage (code) {
 }
 
 function gethdb () {
-    var howto = require('../');
+    var mdwiki = require('../');
     var level = require('level');
     
     var dir = getdir();
@@ -103,14 +102,14 @@ function gethdb () {
     mkdirp.sync(blobdir);
     
     var db = level(path.join(dir, 'db'));
-    return howto(db, { dir: blobdir });
+    return mdwiki(db, { dir: blobdir });
 }
 
 function getdir () {
     var dir = defined(argv.datadir, process.env.HOWTO_PATH);
     if (!dir) {
         dir = defined(process.env.HOME, process.env.USERDIR);
-        if (dir) dir = path.join(dir, '.config', 'howto');
+        if (dir) dir = path.join(dir, '.config', 'mdwiki');
     }
     if (!dir) dir = process.cwd();
     return dir;
