@@ -10,7 +10,9 @@
     "wikidb": "^1.1.0",
     "inherits": "^2.0.1",
     "marked": "~0.3.2",
-    "through2": "~1.1.1"
+    "through2": "^1.1.1",
+    "minimist": "^1.1.0",
+    "default-pager": "^1.0.1"
   },
   "devDependencies": {
     "tape": "^3.0.0"

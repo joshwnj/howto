@@ -5,10 +5,11 @@ var path = require('path');
 var mkdirp = require('mkdirp');
 var minimist = require('minimist');
 var defined = require('defined');
+var pager = require('default-pager');
 var howto = require('../');
 
 var argv = minimist(process.argv.slice(2), {
-    alias: { h: 'help', d: 'datadir' }
+    alias: { h: 'help', d: 'datadir', p: 'port' }
 });
 
 if (argv.help || argv._[0] === 'help') {
@@ -17,10 +18,25 @@ if (argv.help || argv._[0] === 'help') {
 else if (argv.showdir) {
     console.log(getdir());
 }
+else if (argv._[0] === 'server') {
+    var hdb = gethdb();
+    var server = http.createServer(function (req, res) {
+    });
+    server.listen(argv.port, function () {
+        console.error('listening on :' + server.address().port);
+    });
+}
 else if (argv._[0] === 'read') {
     var hdb = gethdb();
     var r = hdb.createReadStream(argv._[1]);
     r.pipe(process.stdout);
+}
+else if (argv._[0] === 'show') {
+    var hdb = gethdb();
+    var r = hdb.createReadStream(argv._[1]);
+    r.pipe(pager(function () {
+        hdb.close();
+    }));
 }
 else if (argv._[0] === 'edit') {
 }
