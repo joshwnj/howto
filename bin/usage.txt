@@ -1,32 +1,32 @@
-mdwiki search QUERY
+$0 search QUERY
 
   Search for articles containing QUERY using a full-text scan.
 
-mdwiki browse TAG
+$0 browse TAG
 
   List all articles matching TAG.
 
-mdwiki recent
+$0 recent
 
   Show all recent activity.
 
-mdwiki read HASH
+$0 read HASH
 
   Print an article to stdout.
 
-mdwiki show HASH
+$0 show HASH
 
   Open an article in $PAGER.
 
-mdwiki edit HASH
+$0 edit HASH
 
   Open an article in $EDITOR and save a new version.
 
-mdwiki create
+$0 create
 
   Create a new document from content on stdin.
 
-mdwiki [push|pull|sync] {URI}
+$0 [push|pull|sync] {URI}
 
   Replicate according to a push, pull, or sync strategy.
   If URI is given, replicate over full-duplex http.
