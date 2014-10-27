@@ -7,6 +7,7 @@ var minimist = require('minimist');
 var defined = require('defined');
 var pager = require('default-pager');
 var editor = require('editor');
+var osenv = require('osenv');
 var howto = require('../');
 
 var argv = minimist(process.argv.slice(2), {
@@ -37,6 +38,27 @@ else if (argv._[0] === 'show') {
     }));
 }
 else if (argv._[0] === 'edit') {
+    var hash = argv._[1];
+    if (!hash) return error('usage: howto edit HASH');
+    var tmpfile = path.join(osenv.tmpdir(), 'howto-' + Math.random());
+    
+    var hdb = gethdb();
+    var w = fs.createWriteStream(tmpfile);
+    var r = hdb.createReadStream(hash);
+    w.on('close', function () {
+        editor(tmpfile, function (code, sig) {
+            if (code !== 0) return process.exit(code);
+            
+            var opts = { prev: hash }
+            var w = hdb.createWriteStream(opts, function (err, key) {
+                if (err) return error(err)
+                console.log(key);
+                hdb.db.close();
+            });
+            fs.createReadStream(tmpfile).pipe(w);
+        });
+    });
+    r.pipe(w);
 }
 else if (argv._[0] === 'sync') {
 }
@@ -51,6 +73,10 @@ else if (argv._[0] === 'create') {
 else if (argv._[0] === 'search') {
     var hdb = gethdb();
     hdb.search(argv._.slice(1)).on('data', console.log);
+}
+else if (argv._[0] === 'recent') {
+    var hdb = gethdb();
+    hdb.recent().on('data', console.log);
 }
 else usage(1);
 
