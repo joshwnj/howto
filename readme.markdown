@@ -37,7 +37,13 @@ Or to edit the document in `$EDITOR`, just use `modwiki edit`:
 $ modwiki edit 0985d816191c936e86827b78bfb4aed957c1e483d3585e04cf61f88927428bae
 ```
 
-and we can search for documents with
+and we can search for documents with `modwiki search`:
+
+```
+# content addressable haiku
+hash: e4abc5bc3000f09009a1570a01a70bdac4a2fae5e20a4a391564b399ff813c63
+
+```
 
 # usage
 
