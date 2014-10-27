@@ -34,7 +34,7 @@ else if (argv._[0] === 'show') {
     var hdb = gethdb();
     var r = hdb.createReadStream(argv._[1]);
     r.pipe(pager(function () {
-        hdb.close();
+        hdb.db.close();
     }));
 }
 else if (argv._[0] === 'edit') {
@@ -60,7 +60,13 @@ else if (argv._[0] === 'edit') {
     });
     r.pipe(w);
 }
-else if (argv._[0] === 'sync') {
+else if (argv._[0] === 'sync' || argv._[0] === 'pull' || argv._[0] === 'push') {
+    var hdb = gethdb();
+    var d = hdb.replicate({ mode: argv._[0] }, function (err) {
+        if (err) error(err)
+        else hdb.db.close()
+    });
+    process.stdin.pipe(d).pipe(process.stdout);
 }
 else if (argv._[0] === 'create') {
     var hdb = gethdb();
