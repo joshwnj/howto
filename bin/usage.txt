@@ -26,6 +26,10 @@ $0 create
 
   Create a new document from content on stdin.
 
+$0 heads KEY
+
+  Show all the heads for KEY.
+
 $0 [push|pull|sync] {URI}
 
   Replicate according to a push, pull, or sync strategy.

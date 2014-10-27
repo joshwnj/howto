@@ -2,6 +2,43 @@
 
 distributed offline-first markdown wiki with multi-master replication
 
+# example
+
+First write a new document in markdown:
+
+    # content addressable haiku
+
+    ```
+    Key of document
+    is the hash of its content.
+    Addressable blob.
+    ```
+    
+    # tags
+    
+    [haiku](tag:haiku) [poem](tag:poem)
+
+Now save the document to `modwiki`:
+
+```
+$ modwiki create < doc.md
+0985d816191c936e86827b78bfb4aed957c1e483d3585e04cf61f88927428bae
+```
+
+Now we can open the document in `$PAGER` with:
+
+```
+$ modwiki show 0985d816191c936e86827b78bfb4aed957c1e483d3585e04cf61f88927428bae
+```
+
+Or to edit the document in `$EDITOR`, just use `modwiki edit`:
+
+```
+$ modwiki edit 0985d816191c936e86827b78bfb4aed957c1e483d3585e04cf61f88927428bae
+```
+
+and we can search for documents with
+
 # usage
 
 ```

@@ -12,7 +12,7 @@ var modwiki = require('../');
 
 module.exports = function (level, args, opts) {
     if (!opts) opts = {};
-    var $0 = opts.$0 || 'mdwiki';
+    var $0 = opts.$0 || 'modwiki';
     
     var argv = minimist(args, {
         alias: { h: 'help', d: 'datadir', p: 'port' }
@@ -44,7 +44,7 @@ module.exports = function (level, args, opts) {
     else if (argv._[0] === 'edit') {
         var hash = argv._[1];
         if (!hash) return error('usage: ' + $0 + ' edit HASH');
-        var tmpfile = path.join(osenv.tmpdir(), 'mdwiki-' + Math.random());
+        var tmpfile = path.join(osenv.tmpdir(), 'modwiki-' + Math.random());
         
         var hdb = gethdb();
         var w = fs.createWriteStream(tmpfile);
@@ -82,11 +82,28 @@ module.exports = function (level, args, opts) {
     }
     else if (argv._[0] === 'search') {
         var hdb = gethdb();
-        hdb.search(argv._.slice(1)).on('data', console.log);
+        hdb.search(argv._.slice(1)).on('data', function (row) {
+            console.log('# ' + row.key);
+            console.log('hash: ' + row.hash + '\n');
+        });
     }
     else if (argv._[0] === 'recent') {
         var hdb = gethdb();
-        hdb.recent().on('data', console.log);
+        hdb.recent().on('data', function (row) {
+            console.log('# ' + row.meta.key );
+            console.log('hash: ' + row.hash);
+            console.log('tags:', row.meta.tags);
+            console.log('date: ' + new Date(row.meta.time));
+            console.log();
+        });
+    }
+    else if (argv._[0] === 'heads') {
+        var key = argv._.slice(1).join(' ');
+        if (!key) error('usage: ' + $0 + ' heads KEY');
+        var hdb = gethdb();
+        hdb.heads(key).on('data', function (row) {
+            console.log(row.hash);
+        });
     }
     else usage(1);
     
@@ -103,7 +120,7 @@ module.exports = function (level, args, opts) {
         mkdirp.sync(blobdir);
         
         var db = level(path.join(dir, 'db'));
-        return mdwiki(db, { dir: blobdir });
+        return modwiki(db, { dir: blobdir });
     }
     
     function getdir () {
