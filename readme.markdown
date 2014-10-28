@@ -45,6 +45,21 @@ hash: e4abc5bc3000f09009a1570a01a70bdac4a2fae5e20a4a391564b399ff813c63
 
 ```
 
+Now elsewhere, you can spin up an http server on port 5000:
+
+```
+$ howto server -p 5000
+listening on :5000
+```
+
+and push your content to it:
+
+```
+$ howto push http://localhost:5000
+```
+
+you can also `howto pull` to fetch content or `howto sync` for push+pull.
+
 # usage
 
 ```
