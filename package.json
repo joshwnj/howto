@@ -1,7 +1,7 @@
 {
-  "name": "mdwiki",
+  "name": "howto",
   "version": "1.0.0",
-  "description": "offline markdown wiki with multi-master replication",
+  "description": "offline wiki for programming guides",
   "main": "index.js",
   "bin": {
     "mdwiki": "bin/cmd.js"

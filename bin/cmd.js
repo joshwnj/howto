@@ -3,5 +3,5 @@
 require('../lib/args.js')(
     require('level-party'),
     process.argv.slice(2),
-    { $0: 'modwiki' }
+    { $0: 'howto' }
 );

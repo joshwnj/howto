@@ -1,6 +1,6 @@
-# modwiki
+# howto
 
-distributed offline-first markdown wiki with multi-master replication
+offline wiki for programming guides (or whatever else)
 
 # example
 
@@ -18,26 +18,26 @@ First write a new document in markdown:
     
     [haiku](tag:haiku) [poem](tag:poem)
 
-Now save the document to `modwiki`:
+Now save the document to `howto`:
 
 ```
-$ modwiki create < doc.md
+$ howto create < doc.md
 0985d816191c936e86827b78bfb4aed957c1e483d3585e04cf61f88927428bae
 ```
 
 Now we can open the document in `$PAGER` with:
 
 ```
-$ modwiki show 0985d816191c936e86827b78bfb4aed957c1e483d3585e04cf61f88927428bae
+$ howto show 0985d816191c936e86827b78bfb4aed957c1e483d3585e04cf61f88927428bae
 ```
 
-Or to edit the document in `$EDITOR`, just use `modwiki edit`:
+Or to edit the document in `$EDITOR`, just use `howto edit`:
 
 ```
-$ modwiki edit 0985d816191c936e86827b78bfb4aed957c1e483d3585e04cf61f88927428bae
+$ howto edit 0985d816191c936e86827b78bfb4aed957c1e483d3585e04cf61f88927428bae
 ```
 
-and we can search for documents with `modwiki search`:
+and we can search for documents with `howto search`:
 
 ```
 # content addressable haiku
@@ -48,35 +48,35 @@ hash: e4abc5bc3000f09009a1570a01a70bdac4a2fae5e20a4a391564b399ff813c63
 # usage
 
 ```
-modwiki search QUERY
+howto search QUERY
 
   Search for articles containing QUERY using a full-text scan.
 
-modwiki browse TAG
+howto browse TAG
 
   List all articles matching TAG.
 
-modwiki recent
+howto recent
 
   Show all recent activity.
 
-modwiki read HASH
+howto read HASH
 
   Print an article to stdout.
 
-modwiki show HASH
+howto show HASH
 
   Open an article in $PAGER.
 
-modwiki edit HASH
+howto edit HASH
 
   Open an article in $EDITOR and save a new version.
 
-modwiki create
+howto create
 
   Create a new document from content on stdin.
 
-modwiki [push|pull|sync] {URI}
+howto [push|pull|sync] {URI}
 
   Replicate according to a push, pull, or sync strategy.
   If URI is given, replicate over full-duplex http.
@@ -87,16 +87,16 @@ modwiki [push|pull|sync] {URI}
 # methods
 
 ``` js
-var modwiki = require('modwiki')
+var howto = require('howto')
 ```
 
-`modwiki` is a [wikidb](https://npmjs.org/package/wikidb) instance. Consult the
+`howto` is a [wikidb](https://npmjs.org/package/wikidb) instance. Consult the
 wikidb (and [forkdb](https://npmjs.org/package/forkdb)) documentation for the
 rest of the methods not mentioned below.
 
-## var md = modwiki(db, opts)
+## var md = howto(db, opts)
 
-Create a modwiki instance `md` from a leveldb handle `db`.
+Create a howto instance `md` from a leveldb handle `db`.
 
 ## var w = md.createWriteStream(meta, cb)
 
@@ -117,13 +117,13 @@ adds a tag for `cookie` to the wiki page.
 With [npm](https://npmjs.org), to get the command, do:
 
 ```
-npm install -g modwiki
+npm install -g howto
 ```
 
 or to get the library, do:
 
 ```
-npm install modwiki
+npm install howto
 ```
 
 # license

@@ -16,7 +16,6 @@ function MD (db, opts) {
 }
 
 var createWriteStream = WikiDB.prototype.createWriteStream;
-var _replicate = WikiDB.prototype._replicate;
 
 MD.prototype.createWriteStream = function (meta, opts, cb) {
     var self = this;
@@ -28,12 +27,4 @@ MD.prototype.createWriteStream = function (meta, opts, cb) {
         w.end(body);
     }));
     return writeonly(stream);
-};
-
-MD.prototype._replicate = function (opts, cb) {
-    var ex = _replicate.call(this, opts, function () {
-        if (cb) cb.apply(this, arguments);
-        ex.close();
-    });
-    return ex;
 };
